@@ -97,6 +97,17 @@ func (j *Xjson) Unmarshal(path string, val any) {
 	if path == "" {
 		jsoniter.UnmarshalFromString(j.str, val)
 	} else {
-		jsoniter.UnmarshalFromString(gjson.Get(j.str, path).Raw, val)
+		jsoniter.UnmarshalFromString(gjson.Get(j.str, path).String(), val)
 	}
+}
+
+// when array, key is "0","1",...
+func (j *Xjson) ForEach(path string,
+	cb func(key string, value string) bool) {
+
+	gjson.Get(j.str, path).ForEach(
+		func(key, value gjson.Result) bool {
+			return cb(key.String(), value.String())
+		},
+	)
 }

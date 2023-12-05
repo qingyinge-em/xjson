@@ -68,6 +68,16 @@ func Test1(t *testing.T) {
 		j.Unmarshal("e."+cast.ToString(i), &e)
 		fmt.Printf("e Unmarshal: %v\n", e)
 	}
+
+	fmt.Println("======ForEach==========")
+	j.ForEach("d", func(key string, value string) bool {
+		fmt.Printf("d: key:%s, value:%s\n", key, value)
+		return true
+	})
+	j.ForEach("e", func(key string, value string) bool {
+		fmt.Printf("e: key:%s, value:%s\n", key, value)
+		return true
+	})
 }
 
 func Test2(t *testing.T) {
