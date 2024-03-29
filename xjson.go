@@ -93,11 +93,11 @@ func (j *Xjson) GetArraySize(path string) int {
 	return int(gjson.Get(j.str, path+".#").Int())
 }
 
-func (j *Xjson) Unmarshal(path string, val any) {
+func (j *Xjson) Unmarshal(path string, val any) error {
 	if path == "" {
-		jsoniter.UnmarshalFromString(j.str, val)
+		return jsoniter.UnmarshalFromString(j.str, val)
 	} else {
-		jsoniter.UnmarshalFromString(gjson.Get(j.str, path).String(), val)
+		return jsoniter.UnmarshalFromString(gjson.Get(j.str, path).String(), val)
 	}
 }
 
